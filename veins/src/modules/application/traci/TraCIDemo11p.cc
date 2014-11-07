@@ -46,8 +46,10 @@ void TraCIDemo11p::onBeacon(WaveShortMessage* wsm) {
 }
 
 void TraCIDemo11p::onData(WaveShortMessage* wsm) {
+
 	findHost()->getDisplayString().updateWith("r=16,green");
 	annotations->scheduleErase(1, annotations->drawLine(wsm->getSenderPos(), traci->getPositionAt(simTime()), "blue"));
+
 
 	if (traci->getRoadId()[0] != ':') traci->commandChangeRoute(wsm->getWsmData(), 9999);
 	if (!sentMessage) sendMessage(wsm->getWsmData());
@@ -57,7 +59,7 @@ void TraCIDemo11p::sendMessage(std::string blockedRoadId) {
 	sentMessage = true;
 
 	t_channel channel = dataOnSch ? type_SCH : type_CCH;
-	WaveShortMessage* wsm = prepareWSM("data", dataLengthBits, channel, dataPriority, -1,2);
+	WaveShortMessage* wsm = prepareWSM("data", dataLengthBits, channel, dataPriority, 5,2);
 	wsm->setWsmData(blockedRoadId.c_str());
 	sendWSM(wsm);
 }

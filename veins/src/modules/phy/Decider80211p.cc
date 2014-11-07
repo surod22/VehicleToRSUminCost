@@ -240,11 +240,18 @@ DeciderResult* Decider80211p::checkIfSignalOk(AirFrame* frame) {
 			break;
 
 		case COLLISION:
+		    EV<< "THIS IS A COLLISION";
 			DBG_D11P << "Packet has bit Errors due to collision. Lost " << std::endl;
 			collisions++;
 			result = new DeciderResult80211(false, payloadBitrate, snirMin);
 			break;
 
+		case LINK_FAILURE:
+		    EV<< "THIS IS A LINK FAILURE";
+		    DBG_D11P << "Packet has low signal , link lost " << std::endl;
+		    linkFailures++;
+		    result = new DeciderResult80211(false, payloadBitrate, snirMin);
+		    break;
 		default:
 			ASSERT2(false, "Impossible packet result returned by packetOk(). Check the code.");
 			break;
@@ -260,7 +267,7 @@ DeciderResult* Decider80211p::checkIfSignalOk(AirFrame* frame) {
 enum Decider80211p::PACKET_OK_RESULT Decider80211p::packetOk(double snirMin, double snrMin, int lengthMPDU, double bitrate) {
 
 	//the lengthMPDU includes the PHY_SIGNAL_LENGTH + PHY_PSDU_HEADER + Payload, while the first is sent with PHY_HEADER_BANDWIDTH
-
+    EV<<"HEADER I AM RIGHT HERE ________________________________";
 	double packetOkSinr;
 	double packetOkSnr;
 
@@ -285,6 +292,7 @@ enum Decider80211p::PACKET_OK_RESULT Decider80211p::packetOk(double snirMin, dou
 	double headerNoErrorSnr;
 	//compute PER also for SNR only
 	if (collectCollisionStats) {
+
 		if (bitrate == 18E+6) {
 			//According to P. Fuxjaeger et al. "IEEE 802.11p Transmission Using GNURadio"
 			double ber = std::min(0.5, 1.5 * erfc(0.45 * sqrt(snrMin)));
@@ -302,6 +310,7 @@ enum Decider80211p::PACKET_OK_RESULT Decider80211p::packetOk(double snirMin, dou
 		//the probability of correct reception without considering the interference
 		//MUST be greater or equal than when consider it
 		assert(packetOkSnr >= packetOkSinr);
+		EV<<"WASABI ++++++++++++++++++++++++++++++++++++++++++"<<headerNoErrorSnr;
 		assert(headerNoErrorSnr >= headerNoError);
 
 	}

@@ -1,0 +1,11 @@
+%description:
+  Test the name and length properties of cMessage.
+
+  %activity:
+  cMessage msg = new cMessage("Joe", 1);
+  ev << "name: " << msg.getId() << endl;
+  ev << "length: " << msg.getKind() << endl;
+
+  %contains: stdout
+  name: Joe
+  length: 456

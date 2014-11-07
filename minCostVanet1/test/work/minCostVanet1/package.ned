@@ -1,0 +1,2 @@
+
+@namespace(minCostVanet1);

@@ -19,8 +19,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifndef DECIDER80211p_H_
-#define DECIDER80211p_H_
+#ifndef Decider80211p_H_
+#define Decider80211p_H_
 
 #include <BaseDecider.h>
 #include <Consts80211p.h>
@@ -83,16 +83,18 @@ class Decider80211p: public BaseDecider {
 		bool collectCollisionStats;
 		/** @brief count the number of collisions */
 		unsigned int collisions;
+		unsigned int linkFailures;
 
 		/**
 		 * @brief tell the outcome of a packetOk() call, which might be
 		 * correctly decoded, discarded due to low SNR or discarder due
 		 * to low SINR (i.e. collision)
 		 */
-		enum PACKET_OK_RESULT {DECODED, NOT_DECODED, COLLISION};
+		enum PACKET_OK_RESULT {DECODED, NOT_DECODED, COLLISION, LINK_FAILURE};
 
-	protected:
 
+
+	public:
 		/**
 		 * @brief Checks a mapping against a specific threshold (element-wise).
 		 *
@@ -103,6 +105,7 @@ class Decider80211p: public BaseDecider {
 		 */
 		virtual DeciderResult* checkIfSignalOk(AirFrame* frame);
 
+	protected:
 		virtual simtime_t processNewSignal(AirFrame* frame);
 
 		/**
@@ -200,4 +203,4 @@ class Decider80211p: public BaseDecider {
 
 };
 
-#endif /* DECIDER80211p_H_ */
+#endif /* Decider80211pLinkFailure_H_ */

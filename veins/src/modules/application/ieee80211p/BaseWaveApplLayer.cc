@@ -109,6 +109,8 @@ void BaseWaveApplLayer::handleLowerMsg(cMessage* msg) {
 	}
 	else if (std::string(wsm->getName()) == "data") {
 		onData(wsm);
+		EV<< "ONDATA";
+
 	}
 	else {
 		DBG << "unknown message (" << wsm->getName() << ")  received\n";
