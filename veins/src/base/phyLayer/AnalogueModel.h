@@ -2,7 +2,7 @@
 #define ANALOGUEMODEL_
 
 #include "MiXiMDefs.h"
-#include "Coord.h"
+#include <Coord.h>
 
 namespace Veins {
 class AirFrame;

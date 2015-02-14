@@ -25,7 +25,7 @@
 
 #include "PhyLayer80211p.h"
 
-#include "Decider80211p.h"
+#include "phy/Decider80211p.h"
 #include "SimplePathlossModel.h"
 #include "BreakpointPathlossModel.h"
 #include "LogNormalShadowing.h"
@@ -351,9 +351,12 @@ Decider* PhyLayer80211p::initializeDecider80211p(ParameterMap& params) {
 
 	bool collectCollisionStatistics = false;
 	{
+	    collectCollisionStatistics = true;
+	                coreEV<< "COLLECTIONSTATISTICS 1================"<< collectCollisionStatistics<<endl;
 		ParameterMap::iterator it = params.find("collectCollisionStatistics");
 		if (it != params.end()) {
 			collectCollisionStatistics = it->second.doubleValue();
+			coreEV<< "COLLECTIONSTATISTICS 2================"<< collectCollisionStatistics<<endl;
 		}
 	}
 

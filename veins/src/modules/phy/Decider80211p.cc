@@ -24,7 +24,7 @@
  * and modifications by Christopher Saloman
  */
 
-#include <Decider80211p.h>
+#include <phy/Decider80211p.h>
 #include <DeciderResult80211.h>
 #include <Mac80211Pkt_m.h>
 #include <Signal_.h>
@@ -326,13 +326,16 @@ enum Decider80211p::PACKET_OK_RESULT Decider80211p::packetOk(double snirMin, dou
 	else {
 
 		if (rand > headerNoError) {
+		    EV<<"HEADERNOERROR : "<<headerNoError;
 			//ups, we have a header error. is that due to interference?
 			if (rand > headerNoErrorSnr) {
+
 				//no. we would have not been able to receive that even
 				//without interference
 				return NOT_DECODED;
 			}
 			else {
+			    EV<<"HEADERNOERRORSNR"<<headerNoErrorSnr;
 				//yes. we would have decoded that without interference
 				return COLLISION;
 			}

@@ -23,7 +23,7 @@
 
 #include <BasePhyLayer.h>
 #include "Mac80211pToPhy11pInterface.h"
-#include <Decider80211p.h>
+#include <phy/Decider80211p.h>
 #include <SimplePathlossModel.h>
 #include <LogNormalShadowing.h>
 #include <SNRThresholdDecider.h>
@@ -31,7 +31,6 @@
 #include <BaseConnectionManager.h>
 #include "Decider80211pToPhy80211pInterface.h"
 #include <Move.h>
-#include <PhysicalLayerProducerInterface.h>
 
 using Veins::AirFrame;
 
